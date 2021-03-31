@@ -42,8 +42,8 @@ CREATE TABLE appointments(
     id int NOT NULL AUTO_INCREMENT,
     idUser int NOT NULL,
     idProject int NOT NULL,
-    startTime int NOT NULL,
-    endTime int NOT NULL,
+    startTime timestamp NOT NULL,
+    endTime timestamp  NOT NULL,
     PRIMARY KEY(id)
 );
 
