@@ -18,14 +18,14 @@ INSERT INTO user (email, name, password, role) VALUES ('programador1@zallpy.com'
 INSERT INTO user (email, name, password, role) VALUES ('programador2@zallpy.com','Programador 2','programador2', 'USER');
 INSERT INTO user (email, name, password, role) VALUES ('administrador@zallpy.com','Administrador','administrador', 'ADMIN');
 
-CREATE TABLE projects(
+CREATE TABLE project(
      id int NOT NULL AUTO_INCREMENT,
      name varchar(200) NOT NULL,
      PRIMARY KEY(id)
 );
 
-INSERT INTO projects (name) VALUES ('Cliente A');
-INSERT INTO projects (name) VALUES ('Cliente B');
+INSERT INTO project (name) VALUES ('Cliente A');
+INSERT INTO project (name) VALUES ('Cliente B');
 
 CREATE TABLE userInProjects(
      id int NOT NULL AUTO_INCREMENT,
@@ -48,7 +48,7 @@ CREATE TABLE appointments(
 );
 
 ALTER TABLE userInProjects ADD FOREIGN KEY (idUser) REFERENCES user(id);
-ALTER TABLE userInProjects ADD FOREIGN KEY (idProject) REFERENCES projects(id);
+ALTER TABLE userInProjects ADD FOREIGN KEY (idProject) REFERENCES project(id);
 
 ALTER TABLE appointments ADD FOREIGN KEY (idUser) REFERENCES user(id);
-ALTER TABLE appointments ADD FOREIGN KEY (idProject) REFERENCES projects(id);
+ALTER TABLE appointments ADD FOREIGN KEY (idProject) REFERENCES project(id);
