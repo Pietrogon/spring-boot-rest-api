@@ -4,6 +4,7 @@ SET character_set_client = utf8;
 SET character_set_connection = utf8;
 SET character_set_results = utf8;
 SET collation_connection = utf8_general_ci;
+set @@session.explicit_defaults_for_timestamp=on;
 
 CREATE TABLE user(
     id int NOT NULL AUTO_INCREMENT,
@@ -42,8 +43,8 @@ CREATE TABLE appointments(
     id int NOT NULL AUTO_INCREMENT,
     idUser int NOT NULL,
     idProject int NOT NULL,
-    startTime timestamp NOT NULL,
-    endTime timestamp  NOT NULL,
+    startTime timestamp,
+    endTime timestamp,
     PRIMARY KEY(id)
 );
 
