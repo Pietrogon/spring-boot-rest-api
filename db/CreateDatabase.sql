@@ -1,6 +1,5 @@
 USE ProjectDB;
 
-SET GLOBAL max_allowed_packet = 1024 * 1024 * 256;
 SET character_set_client = utf8;
 SET character_set_connection = utf8;
 SET character_set_results = utf8;
@@ -11,9 +10,45 @@ CREATE TABLE user(
     email varchar(200) NOT NULL,
     name varchar(200) NOT NULL,
     password varchar(200) NOT NULL,
+    role varchar(200) NOT NULL,
     PRIMARY KEY(id)
 );
 
-INSERT INTO user (email, name, password) VALUES ('programador1@zallpy.com','Programador 1','programador1');
-INSERT INTO user (email, name, password) VALUES ('programador1@zallpy.com','Programador 1','programador1');
-INSERT INTO user (email, name, password) VALUES ('administrador@zallpy.com','Administrador','administrador');
+INSERT INTO user (email, name, password, role) VALUES ('programador1@zallpy.com','Programador 1','programador1', 'USER');
+INSERT INTO user (email, name, password, role) VALUES ('programador2@zallpy.com','Programador 2','programador2', 'USER');
+INSERT INTO user (email, name, password, role) VALUES ('administrador@zallpy.com','Administrador','administrador', 'ADMIN');
+
+CREATE TABLE projects(
+     id int NOT NULL AUTO_INCREMENT,
+     name varchar(200) NOT NULL,
+     PRIMARY KEY(id)
+);
+
+INSERT INTO projects (name) VALUES ('Cliente A');
+INSERT INTO projects (name) VALUES ('Cliente B');
+
+CREATE TABLE userInProjects(
+     id int NOT NULL AUTO_INCREMENT,
+     idUser int NOT NULL,
+     idProject int NOT NULL,
+     PRIMARY KEY(id)
+);
+
+INSERT INTO userInProjects (idUser, idProject) VALUES (1,1);
+INSERT INTO userInProjects (idUser, idProject) VALUES (2,1);
+INSERT INTO userInProjects (idUser, idProject) VALUES (2,2);
+
+CREATE TABLE appointments(
+    id int NOT NULL AUTO_INCREMENT,
+    idUser int NOT NULL,
+    idProject int NOT NULL,
+    startTime int NOT NULL,
+    endTime int NOT NULL,
+    PRIMARY KEY(id)
+);
+
+ALTER TABLE userInProjects ADD FOREIGN KEY (idUser) REFERENCES user(id);
+ALTER TABLE userInProjects ADD FOREIGN KEY (idProject) REFERENCES projects(id);
+
+ALTER TABLE appointments ADD FOREIGN KEY (idUser) REFERENCES user(id);
+ALTER TABLE appointments ADD FOREIGN KEY (idProject) REFERENCES projects(id);
