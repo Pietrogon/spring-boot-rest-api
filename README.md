@@ -7,7 +7,8 @@
 <p align="center">
  <a href="#Projeto">Projeto</a> •
  <a href="#Tecnologias">Tecnologias</a> •
- <a href="#-rodando-o-back-end-servidor">Rodando o Back End</a> • 
+ <a href="#-rodando-a-database-mysql">Rodando o Back End</a> • 
+ <a href="#-rodando-o-servidor">Rodando o Back End</a> • 
  <a href="#Autor">Autor</a>
 </p>
 
@@ -20,12 +21,33 @@
 As seguintes ferramentas foram usadas na construção do projeto:
 
 - [Spring Boot](https://start.spring.io/)
+- [Docker](https://www.docker.com/)
+- [MySQL](https://www.mysql.com/)
 
-### 🎲 Rodando o Back End (servidor)
+### 🎲 Rodando a Database MySQL
 
 ```bash
 # Clone este repositório
 $ git clone https://github.com/Pietrogon/spring-boot-rest-api
+
+# Entrar na pasta do projeto
+$ cd spring-boot-rest-api
+
+# Montar o Docker
+$ docker build -t projectdb .
+
+# Rodando o MySQL
+$ docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=admin -e MYSQL_DATABASE=ProjectDB -e MYSQL_USER=admin -e MYSQL_PASSWORD=admin projectdb
+```
+
+### 🎲 Rodando o Servidor
+
+```bash
+# Clone este repositório
+$ git clone https://github.com/Pietrogon/spring-boot-rest-api
+
+# Entrar na pasta do projeto
+$ cd spring-boot-rest-api
 ```
 
 ### Autor
