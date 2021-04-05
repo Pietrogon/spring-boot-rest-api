@@ -7,8 +7,8 @@
 <p align="center">
  <a href="#Projeto">Projeto</a> •
  <a href="#Tecnologias">Tecnologias</a> •
- <a href="#-rodando-a-database-mysql">Rodando o Back End</a> • 
- <a href="#-rodando-o-servidor">Rodando o Back End</a> • 
+ <a href="#-rodando-a-database-mysql">Rodando a Database MySQL</a> • 
+ <a href="#-rodando-o-servidor">Rodando o Servidor</a> • 
  <a href="#Autor">Autor</a>
 </p>
 

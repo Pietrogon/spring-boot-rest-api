@@ -2,10 +2,16 @@ package com.pietrogon.springbootrestapi.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
-@Entity // This tells Hibernate to make a table out of this class
-@JsonIgnoreProperties({"projects"})
+@Entity
+@JsonIgnoreProperties({"projects","appointments"})
+@Table(	name = "user",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = "username"),
+        @UniqueConstraint(columnNames = "email")
+    })
 public class User {
     @GeneratedValue(strategy=GenerationType.AUTO)
 
@@ -21,12 +27,6 @@ public class User {
     @Column(name = "username")
     private String username;
 
-    @Column(name = "enabled")
-    private String enabled;
-
-    @Column(name = "role")
-    private String role;
-
     @ManyToMany(mappedBy = "users")
     @JsonIgnoreProperties({"projects"})
     private Set<Project> projects;
@@ -34,20 +34,26 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Appointments> appointments;
 
-    public String getRole() {
-        return role;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(	name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
+
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public User(){}
+
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public String getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(String enabled) {
-        this.enabled = enabled;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public Set<Project> getProjects() {

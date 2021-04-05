@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@JsonIgnoreProperties({"users",})
 public class Project {
     @GeneratedValue(strategy = GenerationType.AUTO)
 

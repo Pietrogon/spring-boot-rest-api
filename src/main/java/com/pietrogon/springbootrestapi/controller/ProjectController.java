@@ -1,14 +1,15 @@
 package com.pietrogon.springbootrestapi.controller;
 
+import com.pietrogon.springbootrestapi.entity.Appointments;
 import com.pietrogon.springbootrestapi.entity.Project;
 import com.pietrogon.springbootrestapi.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @Controller
+@CrossOrigin(origins = "http://localhost:3000")
 public class ProjectController {
     @Autowired
     public ProjectController(final ProjectRepository projectRepository) {
@@ -19,31 +20,16 @@ public class ProjectController {
 
     @GetMapping(path="/projects")
     @ResponseBody
+    @PreAuthorize("hasRole('ADMIN')")
     public Iterable<Project> getAllProjects() {
         return projectRepository.findAll();
     }
 
-    @GetMapping(path="/projects/{id}")
+    @GetMapping(path="/projects/user/{id}")
     @ResponseBody
-    public Optional<Project> getProject(@PathVariable Long id) {
-        return projectRepository.findById(id);
+    @PreAuthorize("hasRole('USER')")
+    public Iterable<Project> getProject(@PathVariable Long id) {
+        return projectRepository.findByUserId(id);
     }
 
-    @DeleteMapping(path="/projects/{id}")
-    @ResponseBody
-    public void deleteProject(@PathVariable Long id) {
-        projectRepository.deleteById(id);
-    }
-
-    @PostMapping(path="/projects")
-    @ResponseBody
-    public void saveProject(@RequestBody Project project) {
-        projectRepository.save(project);
-    }
-
-    @PutMapping(path="/projects")
-    @ResponseBody
-    public void updateProject(@RequestBody Project project) {
-        projectRepository.save(project);
-    }
 }

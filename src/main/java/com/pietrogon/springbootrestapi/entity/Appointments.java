@@ -1,9 +1,12 @@
 package com.pietrogon.springbootrestapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
+@JsonIgnoreProperties(value = {"project"},allowSetters = true)
 public class Appointments {
     @GeneratedValue(strategy = GenerationType.AUTO)
 
@@ -19,10 +22,10 @@ public class Appointments {
     @JoinColumn(name = "project_id")
     private Project project;
 
-    @Column(name = "startTime")
+    @Column(name = "start_time")
     private Timestamp startTime;
 
-    @Column(name = "endTime")
+    @Column(name = "end_time")
     private Timestamp endTime;
 
     public Long getId() {
@@ -33,16 +36,16 @@ public class Appointments {
         this.id = id;
     }
 
-    public Long getUser() {
-        return user.getId();
+    public User getUser() {
+        return user;
     }
 
     public void setUser(User user) {
         this.user = user;
     }
 
-    public Long getProject() {
-        return project.getId();
+    public Project getProject() {
+        return project;
     }
 
     public void setProject(Project project) {
